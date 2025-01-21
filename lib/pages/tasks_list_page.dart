@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_sheet/dummy_data/dummy_data.dart';
 import 'package:time_sheet/models/task_model.dart';
+import 'package:time_sheet/widgets/add_task_form.dart';
 import 'package:time_sheet/widgets/tasks_list.dart';
 
 class TasksListPage extends StatelessWidget {
@@ -18,7 +19,14 @@ class TasksListPage extends StatelessWidget {
         tasks: tasks,
       ),
       floatingActionButton: IconButton.filledTonal(
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: AddTaskForm(),
+            ),
+          );
+        },
         icon: const Icon(Icons.add),
       ),
     );

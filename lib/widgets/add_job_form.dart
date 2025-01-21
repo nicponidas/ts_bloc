@@ -51,9 +51,7 @@ class _AddJobFormState extends State<AddJobForm> {
     super.initState();
     if (widget.job != null) {
       selectedClient = widget.job!.clientId;
-    } else if (widget.client != null) {
-      selectedClient = widget.client!;
-    } else {
+    }  else {
       // Dla nowego joba
       final state = context.read<ClientBloc>().state;
       if (state is ClientLoaded && state.clients.isNotEmpty) {
@@ -113,52 +111,53 @@ class _AddJobFormState extends State<AddJobForm> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: Colors.black45,
+              Flexible(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      color: Colors.black45,
+                    ),
                   ),
-                ),
-                width: double.maxFinite,
-                child: BlocBuilder<ClientBloc, ClientState>(
-                  builder: (context, state) {
-
-                    if (state is ClientLoaded) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.black45,
+                  width: double.maxFinite,
+                  child: BlocBuilder<ClientBloc, ClientState>(
+                    builder: (context, state) {
+                      if (state is ClientLoaded) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Colors.black45,
+                            ),
                           ),
-                        ),
-                        width: double.maxFinite,
-                        child: DropdownButton(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          underline: Container(color: Colors.transparent),
-                          value: selectedClient,
-                          items: state.clients
-                              .map(
-                                (e) => DropdownMenuItem(
-                                  value: e.id,
-                                  child: Text(e.name),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedClient = value.toString();
-                            });
-                          },
-                        ),
-                      );
-                    } else if (state is ClientLoading) {
-                      return const CircularProgressIndicator();
-                    } else if (state is ClientError) {
-                      return Text('Error: ${state.error}');
-                    }
-                    return const Text('No clients available');
-                  },
+                          width: double.maxFinite,
+                          child: DropdownButton(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            underline: Container(color: Colors.transparent),
+                            value: selectedClient,
+                            items: state.clients
+                                .map(
+                                  (e) => DropdownMenuItem(
+                                    value: e.id,
+                                    child: Text(e.name),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                selectedClient = value.toString();
+                              });
+                            },
+                          ),
+                        );
+                      } else if (state is ClientLoading) {
+                        return const CircularProgressIndicator();
+                      } else if (state is ClientError) {
+                        return Text('Error: ${state.error}');
+                      }
+                      return const Text('No clients available');
+                    },
+                  ),
                 ),
               ),
               Row(

@@ -12,7 +12,7 @@ var listOfJobs = [
   JobModel(title: 'job1', id: '1', clientId: '1', jobNumber: 12341, jobUrl: '',),
   JobModel(title: 'job2', id: '2', clientId: '2', jobNumber: 12345, jobUrl: '',),
   JobModel(title: 'job3', id: '3', clientId: '1', jobNumber: 12342, jobUrl: '',),
-  JobModel(title: 'job4', id: '4', clientId: '1', jobNumber: 12343, jobUrl: '',),
+  JobModel(title: 'job4', id: '4', clientId: '1', jobNumber: 12343, jobUrl: 'https://google.com',),
 ];
 var listOfTask = [
   TaskModel(
