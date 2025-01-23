@@ -24,6 +24,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
       selectedJob = state.jobs.first.id.toString();
     }
   }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -50,7 +51,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
         });
     setState(() {
       _timeController.text =
-      '${picked!.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
+          '${picked!.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
     });
   }
 
@@ -75,31 +76,19 @@ class _AddTaskFormState extends State<AddTaskForm> {
               child: BlocBuilder<JobBloc, JobState>(
                 builder: (context, state) {
                   if (state is JobLoaded) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Colors.black45,
-                        ),
-                      ),
+                    return DropdownMenu(
+                      enableFilter: true,
                       width: double.maxFinite,
-                      child: DropdownButton(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        underline: Container(color: Colors.transparent),
-                        value: selectedJob,
-                        items: state.jobs
-                            .map(
-                              (e) => DropdownMenuItem(
-                            value: e.id,
-                            child: Text(e.jobNumber.toString()),
-                          ),
-                        ).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            selectedJob = value.toString();
-                          });
-                        },
-                      ),
+                      dropdownMenuEntries: state.jobs
+                          .map((element) => DropdownMenuEntry(
+                              label: element.jobNumber.toString(),
+                              value: element.id))
+                          .toList(),
+                      onSelected: (value) {
+                        setState(() {
+                          selectedJob = value.toString();
+                        });
+                      },
                     );
                   } else if (state is JobLoading) {
                     return const CircularProgressIndicator();
@@ -115,7 +104,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
             decoration: InputDecoration(
               labelText: 'Start Date',
               hintText:
-              'Pick date: ${DateFormat('yyyy-MM-dd').format(DateTime.now())}',
+                  'Pick date: ${DateFormat('yyyy-MM-dd').format(DateTime.now())}',
               border: const OutlineInputBorder(),
             ),
             keyboardType: TextInputType.datetime,
@@ -126,7 +115,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
             decoration: InputDecoration(
               labelText: 'Start Time',
               hintText:
-              'Pick time: ${DateFormat('HH:mm').format(DateTime.now())}',
+                  'Pick time: ${DateFormat('HH:mm').format(DateTime.now())}',
               border: const OutlineInputBorder(),
             ),
             controller: _timeController,
@@ -146,8 +135,6 @@ class _AddTaskFormState extends State<AddTaskForm> {
               ElevatedButton.icon(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-
-
                     Navigator.pop(context);
                   }
                 },

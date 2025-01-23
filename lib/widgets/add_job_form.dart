@@ -51,7 +51,7 @@ class _AddJobFormState extends State<AddJobForm> {
     super.initState();
     if (widget.job != null) {
       selectedClient = widget.job!.clientId;
-    }  else {
+    } else {
       // Dla nowego joba
       final state = context.read<ClientBloc>().state;
       if (state is ClientLoaded && state.clients.isNotEmpty) {
@@ -64,7 +64,6 @@ class _AddJobFormState extends State<AddJobForm> {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<JobBloc, JobState>(
       builder: (context, state) {
         return Form(
@@ -111,54 +110,29 @@ class _AddJobFormState extends State<AddJobForm> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              Flexible(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black45,
-                    ),
-                  ),
-                  width: double.maxFinite,
-                  child: BlocBuilder<ClientBloc, ClientState>(
-                    builder: (context, state) {
-                      if (state is ClientLoaded) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Colors.black45,
-                            ),
-                          ),
-                          width: double.maxFinite,
-                          child: DropdownButton(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            underline: Container(color: Colors.transparent),
-                            value: selectedClient,
-                            items: state.clients
-                                .map(
-                                  (e) => DropdownMenuItem(
-                                    value: e.id,
-                                    child: Text(e.name),
-                                  ),
-                                )
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                selectedClient = value.toString();
-                              });
-                            },
-                          ),
-                        );
-                      } else if (state is ClientLoading) {
-                        return const CircularProgressIndicator();
-                      } else if (state is ClientError) {
-                        return Text('Error: ${state.error}');
-                      }
-                      return const Text('No clients available');
-                    },
-                  ),
-                ),
+              BlocBuilder<ClientBloc, ClientState>(
+                builder: (context, state) {
+                  if (state is ClientLoaded) {
+                    return DropdownMenu(
+                        width: double.maxFinite,
+                        enableFilter: true,
+                        dropdownMenuEntries: state.clients
+                            .map((e) => DropdownMenuEntry(
+                                label: e.name, value: e.id.toString()))
+                            .toList(),
+                        initialSelection: selectedClient,
+                        onSelected: (value) {
+                          setState(() {
+                            selectedClient = value.toString();
+                          });
+                        });
+                  } else if (state is ClientLoading) {
+                    return const CircularProgressIndicator();
+                  } else if (state is ClientError) {
+                    return Text('Error: ${state.error}');
+                  }
+                  return const Text('No clients available');
+                },
               ),
               Row(
                 mainAxisSize: MainAxisSize.min,

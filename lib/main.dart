@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_sheet/bloc/client_bloc.dart';
 import 'package:time_sheet/bloc/job_bloc.dart';
+import 'package:time_sheet/bloc/task_bloc.dart';
 import 'package:time_sheet/pages/home_page.dart';
 import 'package:time_sheet/repositories/client_repository.dart';
 import 'package:time_sheet/repositories/job_repository.dart';
+import 'package:time_sheet/repositories/task_repository.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,8 +24,13 @@ class MyApp extends StatelessWidget {
             ..add(ClientLoad()),
         ),
         BlocProvider(
-          create: (context) => JobBloc(jobRepository: JobRepository())..add(JobLoad()),
-        ),  
+          create: (context) =>
+              JobBloc(jobRepository: JobRepository())..add(JobLoad()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              TaskBloc(taskRepository: TaskRepository())..add(TaskLoad()),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
