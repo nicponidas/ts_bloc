@@ -4,7 +4,7 @@ import 'package:time_sheet/models/client_model.dart';
 class ClientRepository {
   final List<ClientModel> _clients = listOfClient;
 
-  Future<List<ClientModel>> getClients() async => _clients;
+  Future<List<ClientModel>> getClients() async => _clients..sort((elt1, elt2) => elt1.name.compareTo(elt2.name));
 
   Future<void> addClient(ClientModel client) async => _clients.add(client);
 

@@ -180,7 +180,7 @@ class _AddJobFormState extends State<AddJobForm> {
                                 clientId: selectedClient,
                                 jobNumber: int.parse(_jobNumberController.text),
                                 title: _jobNameController.text,
-                                jobUrl: _jobUrlController.text ?? '',
+                                jobUrl: _jobUrlController.text,
                               );
                               context.read<JobBloc>().add(JobAdd(newJob));
                               context.read<JobBloc>().add(JobLoad());

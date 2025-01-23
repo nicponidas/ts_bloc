@@ -9,6 +9,7 @@ part 'job_state.dart';
 class JobBloc extends Bloc<JobEvent, JobState> {
 
   final JobRepository _jobRepository;
+
   JobBloc({required JobRepository jobRepository}) : _jobRepository = jobRepository, super(JobInitial()) {
     on<JobLoad>((event, emit) async {
       emit(JobLoading());
