@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:time_sheet/pages/clients_list_page.dart';
 import 'package:time_sheet/pages/jobs_list_page.dart';
 import 'package:time_sheet/pages/report_page.dart';
+import 'package:time_sheet/pages/task_type_page.dart';
 import 'package:time_sheet/pages/tasks_list_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -51,6 +52,17 @@ class HomePage extends StatelessWidget {
               },
               label: Text('My Tasks'),
               icon: Icon(Icons.task),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const TaskTypePage(),
+                  ),
+                );
+              },
+              label: Text('Type of task'),
+              icon: Icon(Icons.settings),
             ),
             ElevatedButton.icon(
               onPressed: () {

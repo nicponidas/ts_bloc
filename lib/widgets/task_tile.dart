@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:time_sheet/bloc/task_bloc.dart';
 import 'package:time_sheet/dummy_data/dummy_data.dart';
 import 'package:time_sheet/models/task_model.dart';
 
@@ -10,7 +12,7 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskType =
-        listOfTakType.firstWhere((element) => element.id == task.taskTypeId);
+        listOfTaskType.firstWhere((element) => element.id == task.taskTypeId);
     final job = listOfJobs.firstWhere((element) => element.id == task.jobId);
     final client =
         listOfClient.firstWhere((element) => element.id == job.clientId);
@@ -25,7 +27,7 @@ class TaskTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         spacing: 5,
         children: [
-          task.timeSummary == 0.0
+          task.timeSummary == 0.0 || task.timeEnd == null
               ? IconButton.filledTonal(
                   icon: const Icon(Icons.pin_end),
                   color: Colors.lightBlue,
@@ -44,7 +46,8 @@ class TaskTile extends StatelessWidget {
             icon: const Icon(Icons.delete_outline),
             color: Colors.red,
             onPressed: () {
-              debugPrint('Remove ${task.id}: ${task.timeSummary}');
+              context.read<TaskBloc>().add(TaskRemove(task: task));
+              context.read<TaskBloc>().add(TaskLoad());
             },
           ),
         ],

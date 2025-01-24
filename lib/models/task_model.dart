@@ -12,8 +12,8 @@ class TaskModel {
     required this.id,
     this.description,
     required this.timeStart,
-    required this.timeEnd,
-    required this.timeSummary,
+     this.timeEnd,
+     this.timeSummary,
     required this.jobId,
     required this.taskTypeId,
     required this.userId

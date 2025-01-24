@@ -40,7 +40,7 @@ var listOfTask = [
       taskTypeId: '2',
       userId: '1'),
 ];
-var listOfTakType = [
+var listOfTaskType = [
   TaskTypeModel(id: '1', name: 'page update'),
   TaskTypeModel(id: '2', name: 'publication')
 ];

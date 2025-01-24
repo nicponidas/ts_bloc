@@ -4,7 +4,7 @@ import 'package:time_sheet/models/task_model.dart';
 class TaskRepository {
   final List<TaskModel> _tasks = listOfTask;
 
-  Future<List<TaskModel>> getTasks() async => _tasks..sort((elt1, elt2) => elt1.timeStart.compareTo(elt2.timeStart));
+  Future<List<TaskModel>> getTasks() async => _tasks..sort((elt1, elt2) => elt2.timeStart.compareTo(elt1.timeStart));
 
   void addTask(TaskModel task) => _tasks.add(task);
 

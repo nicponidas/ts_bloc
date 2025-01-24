@@ -4,13 +4,15 @@ import 'package:equatable/equatable.dart';
 import 'package:time_sheet/repositories/job_repository.dart';
 
 part 'job_event.dart';
+
 part 'job_state.dart';
 
 class JobBloc extends Bloc<JobEvent, JobState> {
-
   final JobRepository _jobRepository;
 
-  JobBloc({required JobRepository jobRepository}) : _jobRepository = jobRepository, super(JobInitial()) {
+  JobBloc({required JobRepository jobRepository})
+      : _jobRepository = jobRepository,
+        super(JobInitial()) {
     on<JobLoad>((event, emit) async {
       emit(JobLoading());
       try {
@@ -24,9 +26,9 @@ class JobBloc extends Bloc<JobEvent, JobState> {
     on<JobAdd>((event, emit) async {
       emit(JobLoading());
       try {
-         _jobRepository.addJob(event.job);
-         final job = await _jobRepository.getJobs();
-         emit(JobLoaded(jobs: job));
+        _jobRepository.addJob(event.job);
+        final job = await _jobRepository.getJobs();
+        emit(JobLoaded(jobs: job));
       } catch (e) {
         emit(JobError(message: e.toString()));
       }
