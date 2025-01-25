@@ -13,7 +13,7 @@ class AddTaskTypeForm extends StatefulWidget {
 }
 
 class _AddTaskTypeFormState extends State<AddTaskTypeForm> {
-  TextEditingController _typeOfTaskController = TextEditingController();
+  final TextEditingController _typeOfTaskController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController setTaskType(TaskTypeModel? taskType) {
