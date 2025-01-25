@@ -55,4 +55,5 @@ class TaskTypeBloc extends Bloc<TaskTypeEvent, TaskTypeState> {
       },
     );
   }
+
 }

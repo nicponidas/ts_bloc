@@ -11,8 +11,6 @@ class TasksListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<TaskModel> tasks = listOfTask;
-    tasks.sort((elt1, elt2) => elt2.timeStart.compareTo(elt1.timeStart));
     return Scaffold(
       appBar: AppBar(
         title: Text('Tasks'),

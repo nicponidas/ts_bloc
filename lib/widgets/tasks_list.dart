@@ -4,8 +4,8 @@ import 'package:time_sheet/widgets/task_tile.dart';
 
 class TasksList extends StatelessWidget {
   const TasksList({super.key, required this.tasks});
-  final List<TaskModel> tasks;
 
+  final List<TaskModel> tasks;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,13 @@ class TasksList extends StatelessWidget {
           debugPrint('Tapped ${tasks[index].id}: ${tasks[index].timeStart}');
         },
         child: Card(
-          child: TaskTile(task: tasks[index],),
+          color: tasks.elementAt(index).timeSummary == 0.0 ||
+                  tasks.elementAt(index).timeEnd == null
+              ? Colors.green[200]
+              : Colors.white,
+          child: TaskTile(
+            task: tasks[index],
+          ),
         ),
       ),
     );

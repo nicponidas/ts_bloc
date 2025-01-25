@@ -20,11 +20,13 @@ class JobTile extends StatelessWidget {
         .firstWhere((element) => element.id == jobModel.clientId)
         .name;
     return GestureDetector(
-      onTap: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (context) => JobPage(job: jobModel))),
+      onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => JobPage(job: jobModel))),
       child: ListTile(
         contentPadding:
             const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-        leading: Text(jobModel.jobNumber.toString()),
+        leading: CircleAvatar(
+            radius: 25, child: Text(jobModel.jobNumber.toString(),),),
         title: Text(jobModel.title),
         subtitle: Text(clientName),
         trailing: Row(
@@ -47,24 +49,29 @@ class JobTile extends StatelessWidget {
               icon: const Icon(Icons.delete_outline),
               color: Colors.red,
               onPressed: () {
-                showDialog(context: context, builder: (context) => AlertDialog(
-                  title: const Text('Remove Job'),
-                  content: Text('Are you sure you want to remove: \n"${jobModel.title}"?'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        context.read<JobBloc>().add(JobDelete(jobModel));
-                        context.read<JobBloc>().add(JobLoad());
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Remove'),
-                    ),
-                  ],
-                ));
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: const Text('Remove Job'),
+                          content: Text(
+                              'Are you sure you want to remove: \n"${jobModel.title}"?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                context
+                                    .read<JobBloc>()
+                                    .add(JobDelete(jobModel));
+                                context.read<JobBloc>().add(JobLoad());
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Remove'),
+                            ),
+                          ],
+                        ));
               },
             ),
           ],

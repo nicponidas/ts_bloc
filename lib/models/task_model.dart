@@ -3,7 +3,7 @@ class TaskModel {
   final String? description;
   final DateTime timeStart;
   final DateTime? timeEnd;
-  final double? timeSummary;
+  late final double? timeSummary;
   final String jobId;
   final String taskTypeId;
   final String userId;
