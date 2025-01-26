@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:time_sheet/bloc/client_bloc.dart';
 import 'package:time_sheet/bloc/job_bloc.dart';
-import 'package:time_sheet/dummy_data/dummy_data.dart';
+// import 'package:time_sheet/dummy_data/dummy_data.dart';
+// import 'package:time_sheet/models/client_model.dart';
 import 'package:time_sheet/models/job_model.dart';
 import 'package:time_sheet/pages/job_page.dart';
 import 'package:time_sheet/widgets/add_job_form.dart';
@@ -14,11 +16,12 @@ class JobTile extends StatelessWidget {
 
   final JobModel jobModel;
 
+
+
   @override
   Widget build(BuildContext context) {
-    var clientName = listOfClient
-        .firstWhere((element) => element.id == jobModel.clientId)
-        .name;
+    final clientName = (context.watch<ClientBloc>().state as ClientLoaded).clients
+        .firstWhere((element) => element.id == jobModel.clientId).name;
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => JobPage(job: jobModel))),

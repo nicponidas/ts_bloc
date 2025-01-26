@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:time_sheet/bloc/client_bloc.dart';
+import 'package:time_sheet/bloc/job_bloc.dart';
 import 'package:time_sheet/bloc/task_bloc.dart';
 import 'package:time_sheet/bloc/task_type_bloc.dart';
-import 'package:time_sheet/dummy_data/dummy_data.dart';
 import 'package:time_sheet/models/task_model.dart';
 import 'package:time_sheet/widgets/add_task_form.dart';
 
@@ -13,11 +14,15 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final taskType = listOfTaskType.firstWhere((element) => element.id == task.taskTypeId);
-    final job = listOfJobs.firstWhere((element) => element.id == task.jobId);
-    final client =
-        listOfClient.firstWhere((element) => element.id == job.clientId);
+    final taskType = (context.watch<TaskTypeBloc>().state as TaskTypeLoaded)
+        .taskTypes
+        .firstWhere((element) => element.id == task.taskTypeId);
+    final job = (context.watch<JobBloc>().state as JobLoaded)
+        .jobs
+        .firstWhere((element) => element.id == task.jobId);
+    final client = (context.watch<ClientBloc>().state as ClientLoaded)
+        .clients
+        .firstWhere((element) => element.id == job.clientId);
     return ListTile(
       contentPadding:
           const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
