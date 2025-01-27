@@ -1,6 +1,4 @@
-
 part of 'client_bloc.dart';
-
 
 abstract class ClientState extends Equatable {
   const ClientState();

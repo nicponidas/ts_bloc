@@ -11,6 +11,7 @@ class JobLoad extends JobEvent {}
 
 class JobAdd extends JobEvent {
   final JobModel job;
+
   const JobAdd(this.job);
 
   @override
@@ -19,6 +20,7 @@ class JobAdd extends JobEvent {
 
 class JobDelete extends JobEvent {
   final JobModel job;
+
   const JobDelete(this.job);
 
   @override
@@ -27,6 +29,7 @@ class JobDelete extends JobEvent {
 
 class JobUpdate extends JobEvent {
   final JobModel job;
+
   const JobUpdate(this.job);
 
   @override

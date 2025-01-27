@@ -13,18 +13,21 @@ class JobsListPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Jobs'),
       ),
-      body: BlocBuilder<JobBloc, JobState>(
-        builder: (context, state) {
-          if (state is JobLoading) {
-            return const Center(child: CircularProgressIndicator(),);
-          }
-          else if (state is JobLoaded) {
-            return JobsList(jobs: state.jobs,);
-          }
-          else {
-            return const Center(child: Text('Nieznany stan'),);
-          }
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BlocBuilder<JobBloc, JobState>(
+          builder: (context, state) {
+            if (state is JobLoading) {
+              return const Center(child: CircularProgressIndicator(),);
+            }
+            else if (state is JobLoaded) {
+              return JobsList(jobs: state.jobs,);
+            }
+            else {
+              return const Center(child: Text('Nieznany stan'),);
+            }
+          },
+        ),
       ),
       floatingActionButton: IconButton.filledTonal(
         onPressed: () {

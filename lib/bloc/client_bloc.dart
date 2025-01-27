@@ -13,8 +13,6 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
   ClientBloc({required ClientRepository clientRepository})
       : _clientRepository = clientRepository,
         super(ClientInitial()) {
-
-
     on<ClientLoad>((event, emit) async {
       emit(ClientLoading());
       try {

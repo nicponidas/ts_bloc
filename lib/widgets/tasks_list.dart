@@ -9,13 +9,11 @@ class TasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: tasks.length,
-      itemBuilder: (context, index) => GestureDetector(
-        onTap: () {
-          debugPrint('Tapped ${tasks[index].id}: ${tasks[index].timeStart}');
-        },
-        child: Card(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+        itemCount: tasks.length,
+        itemBuilder: (context, index) => Card(
           color: tasks.elementAt(index).timeSummary == 0.0 ||
                   tasks.elementAt(index).timeEnd == null
               ? Colors.green[200]

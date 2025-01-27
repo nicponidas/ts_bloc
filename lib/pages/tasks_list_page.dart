@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_sheet/bloc/task_bloc.dart';
-import 'package:time_sheet/dummy_data/dummy_data.dart';
-import 'package:time_sheet/models/task_model.dart';
 import 'package:time_sheet/widgets/add_task_form.dart';
 import 'package:time_sheet/widgets/tasks_list.dart';
 

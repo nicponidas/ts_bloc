@@ -18,8 +18,8 @@ var listOfTask = [
   TaskModel(
       id: '1',
       timeStart: DateTime(2024, 12, 11, 10, 50, 0),
-      timeEnd: DateTime(2024, 12, 11, 10, 50, 0),
-      timeSummary: 0.25,
+      timeEnd: DateTime(2024, 12, 11, 11, 50, 0),
+      timeSummary: 1.00,
       jobId: '1',
       taskTypeId: '1',
       userId: '1'),
@@ -34,8 +34,8 @@ var listOfTask = [
   TaskModel(
       id: '1',
       timeStart: DateTime(2024, 12, 23, 10, 50, 0),
-      timeEnd: DateTime(2024, 12, 24, 10, 50, 0),
-      timeSummary: 12,
+      timeEnd: DateTime(2024, 12, 24, 10, 55, 0),
+      timeSummary: 0.25,
       jobId: '3',
       taskTypeId: '2',
       userId: '1'),

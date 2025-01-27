@@ -21,20 +21,23 @@ class ClientsListPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (state is ClientLoaded) {
-            return ListView.builder(
-              itemCount: state.clients.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ClientPage(
-                            client: state.clients.elementAt(index).id)));
-                  },
-                  child: Card(
-                    child: ClientTile(clientModel: state.clients.elementAt(index),),
-                  ),
-                );
-              },
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: state.clients.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ClientPage(
+                              client: state.clients.elementAt(index).id)));
+                    },
+                    child: Card(
+                      child: ClientTile(clientModel: state.clients.elementAt(index),),
+                    ),
+                  );
+                },
+              ),
             );
           } else {
             return const Center(child: Text('Nieznany stan'));
