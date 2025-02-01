@@ -5,12 +5,15 @@ import 'package:time_sheet/bloc/client_bloc.dart';
 import 'package:time_sheet/bloc/task_bloc.dart';
 import 'package:time_sheet/bloc/task_type_bloc.dart';
 import 'package:time_sheet/models/job_model.dart';
+import 'package:time_sheet/widgets/add_task_form.dart';
 import 'package:time_sheet/widgets/tasks_list.dart';
 
 class JobPage extends StatelessWidget {
   const JobPage({super.key, required this.job});
 
   final JobModel job;
+
+
 
 
   @override
@@ -54,16 +57,13 @@ class JobPage extends StatelessWidget {
                           .map(
                             (task) => PieChartSectionData(
                               value: task.timeSummary,
-                              color: Colors.lightBlue,
+                              color: clientList.clientColor,
                               title: taskTypeList
                                   .firstWhere((element) =>
                                       element.id == task.taskTypeId)
                                   .name,
                               radius: 100,
-                              gradient: const LinearGradient(
-                                colors: [Colors.blue, Colors.lightGreen],
-                                transform: GradientRotation(60),
-                              ),
+
                             ),
                           )
                           .toList(),
@@ -76,7 +76,7 @@ class JobPage extends StatelessWidget {
                   );
                 }
                 else {
-                  return Container();
+                  return Text('There is no data');
                 }
               },
             ),
@@ -86,6 +86,9 @@ class JobPage extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        showDialog(context: context, builder: (context) => AlertDialog(content: AddTaskForm(),));
+      }, child: const Icon(Icons.add),),
     );
   }
 }

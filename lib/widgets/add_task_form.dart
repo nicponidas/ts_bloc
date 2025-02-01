@@ -35,11 +35,11 @@ class _AddTaskFormState extends State<AddTaskForm> {
           DateFormat('yyyy-MM-dd').format(widget.task!.timeStart).toString();
       _timeStartController.text =
           DateFormat('HH:mm').format(widget.task!.timeStart).toString();
-      _timeEndController.text =
-          DateFormat('HH:mm').format(widget.task!.timeEnd!).toString();
-      _dateEndController.text =
-          DateFormat('yyyy-MM-dd').format(widget.task!.timeEnd!).toString();
     }
+    _dateEndController.text =
+        DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
+    _timeEndController.text =
+        DateFormat('HH:mm').format(DateTime.now()).toString();
   }
 
 
@@ -123,6 +123,8 @@ class _AddTaskFormState extends State<AddTaskForm> {
             },
           ),
           TextFormField(
+            validator: (value) => value == null || value.isEmpty
+                ? 'Please enter start Date' : null,
             decoration: InputDecoration(
               labelText: 'Start Date',
               hintText:
@@ -134,6 +136,8 @@ class _AddTaskFormState extends State<AddTaskForm> {
             onTap: () => _selectDate(context, _dateStartController),
           ),
           TextFormField(
+            validator: (value) => value == null || value.isEmpty
+                ? 'Please enter start Time' : null,
             decoration: InputDecoration(
               labelText: 'Start Time',
               hintText:
@@ -151,12 +155,14 @@ class _AddTaskFormState extends State<AddTaskForm> {
                   spacing: 10,
                   children: [
                     TextFormField(
+                      validator: (value) => value == null || value.isEmpty ? 'Please enter end Date' : null,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(), labelText: 'End Date'),
                       controller: _dateEndController,
                       onTap: () => _selectDate(context, _dateEndController),
                     ),
                     TextFormField(
+                      validator: (value) => value == null || value.isEmpty ? 'Please enter end Time' : null,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(), labelText: 'End Time'),
                       controller: _timeEndController,
@@ -214,8 +220,8 @@ class _AddTaskFormState extends State<AddTaskForm> {
                           id: widget.task!.id,
                           timeStart: startDate,
                           timeSummary: sumTask,
-                          jobId: widget.task!.jobId,
-                          taskTypeId: widget.task!.taskTypeId,
+                          jobId: selectedJob,
+                          taskTypeId: selectTaskType,
                           timeEnd: endDate,
                           userId: widget.task!.userId,
                         );
