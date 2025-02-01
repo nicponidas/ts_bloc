@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:time_sheet/bloc/client_bloc.dart';
 import 'package:time_sheet/models/client_model.dart';
 import 'package:time_sheet/repositories/client_repository.dart';
@@ -17,13 +18,19 @@ class _AddClientFormState extends State<AddClientForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _clientNameController = TextEditingController();
   final clientRepository = ClientRepository();
+  final TextEditingController _clientShortNameController =
+      TextEditingController();
+  Color _color = Colors.green;
 
-  TextEditingController setClientName(ClientModel? client) {
-    if (client == null) {
-      return _clientNameController;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.client != null) {
+      _color = widget.client!.clientColor;
+      _clientNameController.text = widget.client!.name;
+      _clientShortNameController.text = widget.client!.shortName;
     }
-    _clientNameController.text = client.name;
-    return _clientNameController;
   }
 
   @override
@@ -36,26 +43,47 @@ class _AddClientFormState extends State<AddClientForm> {
             mainAxisSize: MainAxisSize.min,
             spacing: 16.0,
             children: [
-              widget.client == null ? Text(
-                'Add Client', textAlign: TextAlign.left, style: Theme
-                  .of(context)
-                  .textTheme
-                  .headlineSmall,) :  Text(
-          'Update Client', textAlign: TextAlign.left, style: Theme
-            .of(context)
-            .textTheme
-            .headlineSmall,),
+              widget.client == null
+                  ? Text(
+                      'Add Client',
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    )
+                  : Text(
+                      'Update Client',
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
               TextFormField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Client Name',
                 ),
-                controller: setClientName(widget.client),
+                controller: _clientNameController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter Client Name';
                   }
                   return null;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Client Short Name',
+                ),
+                controller: _clientShortNameController,
+                validator: (value) => value == null || value.isEmpty
+                    ? 'Please enter Client Short Name'
+                    : null,
+              ),
+              ColorPicker(
+                enableAlpha: false,
+                pickerColor: _color,
+                onColorChanged: (value) {
+                  setState(() {
+                    _color = value;
+                  });
                 },
               ),
               Row(
@@ -70,50 +98,53 @@ class _AddClientFormState extends State<AddClientForm> {
                   ),
                   widget.client != null
                       ? ElevatedButton.icon(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        final client = ClientModel(
-                          id: widget.client!.id,
-                          name: _clientNameController.text,
-                        );
-                        context.read<ClientBloc>().add(
-                          ClientUpdate(client: client),
-                        );
-                        context.read<ClientBloc>().add(ClientLoad());
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Processing Data ...')),
-                        );
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    label: const Text('Update'),
-                    icon: const Icon(Icons.update),
-                  )
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              final client = ClientModel(
+                                id: widget.client!.id,
+                                name: _clientNameController.text,
+                                shortName: _clientShortNameController.text.toUpperCase(),
+                                clientColor: _color,
+                              );
+                              context.read<ClientBloc>().add(
+                                    ClientUpdate(client: client),
+                                  );
+                              context.read<ClientBloc>().add(ClientLoad());
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Processing Data ...')),
+                              );
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          label: const Text('Update'),
+                          icon: const Icon(Icons.update),
+                        )
                       : ElevatedButton.icon(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        final client = ClientModel(
-                          id: DateTime
-                              .now()
-                              .millisecondsSinceEpoch
-                              .toString(),
-                          name: _clientNameController.text,
-                        );
-                        context.read<ClientBloc>().add(
-                          ClientAdd(client: client),
-                        );
-                        context.read<ClientBloc>().add(ClientLoad());
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Processing Data ...')),
-                        );
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    label: const Text('Add'),
-                    icon: const Icon(Icons.add),
-                  ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              final client = ClientModel(
+                                id: DateTime.now()
+                                    .millisecondsSinceEpoch
+                                    .toString(),
+                                name: _clientNameController.text,
+                                shortName: _clientShortNameController.text.toUpperCase(),
+                                clientColor: _color,
+                              );
+                              context.read<ClientBloc>().add(
+                                    ClientAdd(client: client),
+                                  );
+                              context.read<ClientBloc>().add(ClientLoad());
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Processing Data ...')),
+                              );
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          label: const Text('Add'),
+                          icon: const Icon(Icons.add),
+                        ),
                 ],
               )
             ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_sheet/bloc/client_bloc.dart';
 import 'package:time_sheet/bloc/job_bloc.dart';
+
 // import 'package:time_sheet/dummy_data/dummy_data.dart';
 // import 'package:time_sheet/models/client_model.dart';
 import 'package:time_sheet/models/job_model.dart';
@@ -16,12 +17,11 @@ class JobTile extends StatelessWidget {
 
   final JobModel jobModel;
 
-
-
   @override
   Widget build(BuildContext context) {
-    final clientName = (context.watch<ClientBloc>().state as ClientLoaded).clients
-        .firstWhere((element) => element.id == jobModel.clientId).name;
+    final client = (context.watch<ClientBloc>().state as ClientLoaded)
+        .clients
+        .firstWhere((element) => element.id == jobModel.clientId);
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => JobPage(job: jobModel))),
@@ -29,9 +29,14 @@ class JobTile extends StatelessWidget {
         contentPadding:
             const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
         leading: CircleAvatar(
-            radius: 25, child: Text(jobModel.jobNumber.toString(),),),
-        title: Text(jobModel.title),
-        subtitle: Text(clientName),
+          radius: 25,
+          backgroundColor: client.clientColor.withAlpha(150),
+          child: Text(
+            client.shortName,
+          ),
+        ),
+        title: Text(jobModel.jobNumber.toString()),
+        subtitle: Text(jobModel.title),
         trailing: Row(
           spacing: 5,
           mainAxisSize: MainAxisSize.min,

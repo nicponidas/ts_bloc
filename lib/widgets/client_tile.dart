@@ -5,10 +5,7 @@ import 'package:time_sheet/models/client_model.dart';
 import 'package:time_sheet/widgets/add_client_form.dart';
 
 class ClientTile extends StatelessWidget {
-  const ClientTile({
-    super.key,
-    required this.clientModel
-  });
+  const ClientTile({super.key, required this.clientModel});
 
   final ClientModel clientModel;
 
@@ -17,6 +14,11 @@ class ClientTile extends StatelessWidget {
     return ListTile(
       contentPadding:
           const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+      leading: CircleAvatar(
+        radius: 25,
+        backgroundColor: clientModel.clientColor.withAlpha(150),
+        child: Text(clientModel.shortName),
+      ),
       title: Text(clientModel.name),
       trailing: Row(
         spacing: 5.0,
@@ -29,9 +31,10 @@ class ClientTile extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  content:  AddClientForm(client: clientModel),),
-                );
-              },
+                  content: AddClientForm(client: clientModel),
+                ),
+              );
+            },
           ),
           IconButton.filledTonal(
             icon: const Icon(Icons.delete_outline),
@@ -41,18 +44,22 @@ class ClientTile extends StatelessWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: const Text('Remove Client'),
-                  content: Text('Are you sure you want to remove: \n"${clientModel.name}"?'),
+                  content: Text(
+                      'Are you sure you want to remove: \n"${clientModel.name}"?'),
                   actions: [
                     TextButton(
                         onPressed: () => Navigator.pop(context),
                         child: const Text('Cancel')),
                     TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          context.read<ClientBloc>().add(ClientDelete(clientId: clientModel.id));
-                          context.read<ClientBloc>().add(ClientLoad());
-                        },
-                        child: const Text('Remove')),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        context
+                            .read<ClientBloc>()
+                            .add(ClientDelete(clientId: clientModel.id));
+                        context.read<ClientBloc>().add(ClientLoad());
+                      },
+                      child: const Text('Remove'),
+                    ),
                   ],
                 ),
               );

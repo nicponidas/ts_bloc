@@ -24,23 +24,24 @@ class _AddTaskFormState extends State<AddTaskForm> {
   final TextEditingController _dateEndController = TextEditingController();
   final TextEditingController _timeEndController = TextEditingController();
 
-  TextEditingController _setStartDate(TaskModel? task) {
-    if (task != null) {
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.task != null) {
+      selectedJob = widget.task!.jobId.toString();
+      selectTaskType = widget.task!.taskTypeId.toString();
       _dateStartController.text =
-          DateFormat('yyyy-MM-dd').format(task.timeStart).toString();
-      return _dateStartController;
+          DateFormat('yyyy-MM-dd').format(widget.task!.timeStart).toString();
+      _timeStartController.text =
+          DateFormat('HH:mm').format(widget.task!.timeStart).toString();
+      _timeEndController.text =
+          DateFormat('HH:mm').format(widget.task!.timeEnd!).toString();
+      _dateEndController.text =
+          DateFormat('yyyy-MM-dd').format(widget.task!.timeEnd!).toString();
     }
-    return _dateStartController;
   }
 
-  TextEditingController _setStartTime(TaskModel? task) {
-    if (task != null) {
-      _timeStartController.text =
-          DateFormat('HH:mm').format(task.timeStart).toString();
-      return _timeStartController;
-    }
-    return _timeStartController;
-  }
 
   Future<void> _selectDate(
       BuildContext context, TextEditingController controller) async {
@@ -129,7 +130,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
               border: const OutlineInputBorder(),
             ),
             keyboardType: TextInputType.datetime,
-            controller: _setStartDate(widget.task),
+            controller: _dateStartController,
             onTap: () => _selectDate(context, _dateStartController),
           ),
           TextFormField(
@@ -139,7 +140,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
                   'Pick time: ${DateFormat('HH:mm').format(DateTime.now())}',
               border: const OutlineInputBorder(),
             ),
-            controller: _setStartTime(widget.task),
+            controller: _timeStartController,
             onTap: () => _selectTime(context, _timeStartController),
           ),
           widget.task == null
@@ -206,10 +207,12 @@ class _AddTaskFormState extends State<AddTaskForm> {
                         final String endDateText = "${_dateEndController.text} ${_timeEndController.text}";
                         final DateTime endDate =
                             DateTime.parse(endDateText);
-                        final sumTask = calculateDuration(widget.task!.timeStart, endDate);
+                        final DateTime startDate =
+                        DateTime.parse("${_dateStartController.text} ${_timeStartController.text}");
+                        final sumTask = calculateDuration(startDate, endDate);
                         final newTask = TaskModel(
                           id: widget.task!.id,
-                          timeStart: widget.task!.timeStart,
+                          timeStart: startDate,
                           timeSummary: sumTask,
                           jobId: widget.task!.jobId,
                           taskTypeId: widget.task!.taskTypeId,
