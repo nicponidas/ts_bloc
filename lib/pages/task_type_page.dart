@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_sheet/bloc/task_type_bloc.dart';
 import 'package:time_sheet/widgets/add_task_type_form.dart';
+import 'package:time_sheet/widgets/my_drawer.dart';
 
 class TaskTypePage extends StatelessWidget {
   const TaskTypePage({super.key});
@@ -9,6 +10,8 @@ class TaskTypePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer(),
+
       appBar: AppBar(
         title: Text('Type of task list'),
       ),

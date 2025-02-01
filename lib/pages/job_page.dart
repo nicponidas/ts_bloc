@@ -6,6 +6,7 @@ import 'package:time_sheet/bloc/task_bloc.dart';
 import 'package:time_sheet/bloc/task_type_bloc.dart';
 import 'package:time_sheet/models/job_model.dart';
 import 'package:time_sheet/widgets/add_task_form.dart';
+import 'package:time_sheet/widgets/my_drawer.dart';
 import 'package:time_sheet/widgets/tasks_list.dart';
 
 class JobPage extends StatelessWidget {
@@ -29,6 +30,7 @@ class JobPage extends StatelessWidget {
         .taskTypes
         .toList();
     return Scaffold(
+      drawer: MyDrawer(),
       appBar: AppBar(
         title: Text(job.jobNumber.toString()),
       ),

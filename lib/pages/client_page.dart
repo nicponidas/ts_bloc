@@ -3,6 +3,7 @@ import 'package:time_sheet/dummy_data/dummy_data.dart';
 import 'package:time_sheet/models/job_model.dart';
 import 'package:time_sheet/widgets/add_job_form.dart';
 import 'package:time_sheet/widgets/jobs_list.dart';
+import 'package:time_sheet/widgets/my_drawer.dart';
 
 class ClientPage extends StatelessWidget {
   const ClientPage({super.key, required this.client});
@@ -14,6 +15,7 @@ class ClientPage extends StatelessWidget {
     List<JobModel> jobs =
         listOfJobs.where((element) => element.clientId == client).toList();
     return Scaffold(
+      drawer: MyDrawer(),
       appBar: AppBar(
         title: Text(
             listOfClient.firstWhere((element) => element.id == client).name),

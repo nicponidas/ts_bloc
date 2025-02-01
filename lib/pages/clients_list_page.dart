@@ -4,6 +4,7 @@ import 'package:time_sheet/bloc/client_bloc.dart';
 import 'package:time_sheet/pages/client_page.dart';
 import 'package:time_sheet/widgets/add_client_form.dart';
 import 'package:time_sheet/widgets/client_tile.dart';
+import 'package:time_sheet/widgets/my_drawer.dart';
 
 class ClientsListPage extends StatelessWidget {
   const ClientsListPage({super.key});
@@ -11,6 +12,7 @@ class ClientsListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer(),
       appBar: AppBar(
         title: const Text('Clients'),
       ),
