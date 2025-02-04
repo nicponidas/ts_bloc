@@ -8,7 +8,6 @@ class ReportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MyDrawer(),
-
       appBar: AppBar(
         title: const Text('Report'),
       ),
