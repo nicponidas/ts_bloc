@@ -44,5 +44,6 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
       final clients = await _clientRepository.getClients();
       emit(ClientLoaded(clients: clients));
     });
+    add(ClientLoad());
   }
 }

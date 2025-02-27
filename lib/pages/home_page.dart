@@ -8,8 +8,11 @@ import 'package:time_sheet/pages/tasks_list_page.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+
+
   @override
   Widget build(BuildContext context) {
+    // Inicjalizacja DbHelper
     return Scaffold(
       // bottomNavigationBar: BottomBar(),
       body: Center(
@@ -19,6 +22,9 @@ class HomePage extends StatelessWidget {
           children: [
             ElevatedButton.icon(
               onPressed: () {
+                // DbHelper dbHelper = DbHelper(path: 'D:/bazy/time_sheet.db');
+                // dbHelper.printClients('client');
+                // debugPrint('db: ${dbHelper.database}');
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const ClientsListPage(),

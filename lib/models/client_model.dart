@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 class ClientModel {
   final String id;
   final String name;
   final String shortName;
-  final Color clientColor;
+  final int clientColor;
 
   ClientModel({
     required this.id,
@@ -18,25 +16,24 @@ class ClientModel {
       'id': id,
       'name': name,
       'shortName': shortName,
-      'color': clientColor
+      'clientColor': clientColor
     };
   }
 
-  factory ClientModel.fromJson(Map<String, dynamic> map) {
+  factory ClientModel.fromMap(Map<String, dynamic> map) {
     return ClientModel(
       id: map['id'] as String,
       name: map['name'] as String,
       shortName: map['shortName'] as String,
-      clientColor: Color(map['clientColor'] as int),
+      clientColor: map['clientColor'] as int,
     );
   }
 
   ClientModel copyWith({String? id, String? name}) {
     return ClientModel(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      shortName: shortName,
-        clientColor: clientColor
-    );
+        id: id ?? this.id,
+        name: name ?? this.name,
+        shortName: shortName,
+        clientColor: clientColor);
   }
 }

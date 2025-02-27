@@ -18,7 +18,11 @@ class ClientsListPage extends StatelessWidget {
       ),
       body: BlocBuilder<ClientBloc, ClientState>(
         builder: (context, state) {
-          if (state is ClientLoading) {
+          if (state is ClientInitial) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is ClientLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
@@ -35,12 +39,16 @@ class ClientsListPage extends StatelessWidget {
                               client: state.clients.elementAt(index).id)));
                     },
                     child: Card(
-                      child: ClientTile(clientModel: state.clients.elementAt(index),),
+                      child: ClientTile(
+                        clientModel: state.clients.elementAt(index),
+                      ),
                     ),
                   );
                 },
               ),
             );
+          } else if (state is ClientError) {
+            return Center(child: Text(state.error));
           } else {
             return const Center(child: Text('Nieznany stan'));
           }

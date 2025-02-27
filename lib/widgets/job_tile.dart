@@ -30,7 +30,7 @@ class JobTile extends StatelessWidget {
             const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
         leading: CircleAvatar(
           radius: 25,
-          backgroundColor: client.clientColor.withAlpha(150),
+          backgroundColor: Color(client.clientColor).withAlpha(150),
           child: Text(
             client.shortName,
           ),

@@ -59,7 +59,7 @@ class JobPage extends StatelessWidget {
                           .map(
                             (task) => PieChartSectionData(
                               value: task.timeSummary,
-                              color: clientList.clientColor,
+                              color: Color(clientList.clientColor),
                               title: taskTypeList
                                   .firstWhere((element) =>
                                       element.id == task.taskTypeId)

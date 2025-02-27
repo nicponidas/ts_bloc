@@ -2,7 +2,9 @@ import 'package:time_sheet/dummy_data/dummy_data.dart';
 import 'package:time_sheet/models/client_model.dart';
 
 class ClientRepository {
-  final List<ClientModel> _clients = listOfClient;
+
+  List<ClientModel> _clients =listOfClient;
+
 
   Future<List<ClientModel>> getClients() async => _clients..sort((elt1, elt2) => elt1.name.compareTo(elt2.name));
 

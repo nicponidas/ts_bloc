@@ -16,8 +16,8 @@ class ClientTile extends StatelessWidget {
           const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
       leading: CircleAvatar(
         radius: 25,
-        backgroundColor: clientModel.clientColor.withAlpha(150),
-        child: Text(clientModel.shortName),
+        backgroundColor: Color(clientModel.clientColor).withAlpha(150),
+        child: Text(clientModel.shortName, textAlign: TextAlign.center,),
       ),
       title: Text(clientModel.name),
       trailing: Row(

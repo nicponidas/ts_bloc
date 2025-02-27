@@ -14,6 +14,20 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final taskTypeState = context.watch<TaskTypeBloc>().state;
+    final jobState = context.watch<JobBloc>().state;
+    final clientState = context.watch<ClientBloc>().state;
+
+    // Sprawdzaj stany przed użyciem
+    if (taskTypeState is! TaskTypeLoaded ||
+        jobState is! JobLoaded ||
+        clientState is! ClientLoaded) {
+      // Zwróć widok ładowania lub inny widok zastępczy
+      return const ListTile(
+        title: Text('Ładowanie danych...'),
+        leading: CircleAvatar(child: CircularProgressIndicator()),
+      );
+    }
     final taskType = (context.watch<TaskTypeBloc>().state as TaskTypeLoaded)
         .taskTypes
         .firstWhere((element) => element.id == task.taskTypeId);

@@ -27,7 +27,7 @@ class _AddClientFormState extends State<AddClientForm> {
   void initState() {
     super.initState();
     if (widget.client != null) {
-      _color = widget.client!.clientColor;
+      _color = Color(widget.client!.clientColor);
       _clientNameController.text = widget.client!.name;
       _clientShortNameController.text = widget.client!.shortName;
     }
@@ -99,12 +99,13 @@ class _AddClientFormState extends State<AddClientForm> {
                   widget.client != null
                       ? ElevatedButton.icon(
                           onPressed: () {
+
                             if (_formKey.currentState!.validate()) {
                               final client = ClientModel(
                                 id: widget.client!.id,
                                 name: _clientNameController.text,
                                 shortName: _clientShortNameController.text.toUpperCase(),
-                                clientColor: _color,
+                                clientColor: _color.toARGB32().toInt(),
                               );
                               context.read<ClientBloc>().add(
                                     ClientUpdate(client: client),
@@ -122,6 +123,7 @@ class _AddClientFormState extends State<AddClientForm> {
                         )
                       : ElevatedButton.icon(
                           onPressed: () {
+                            debugPrint(_color.toARGB32().toString());
                             if (_formKey.currentState!.validate()) {
                               final client = ClientModel(
                                 id: DateTime.now()
@@ -129,7 +131,7 @@ class _AddClientFormState extends State<AddClientForm> {
                                     .toString(),
                                 name: _clientNameController.text,
                                 shortName: _clientShortNameController.text.toUpperCase(),
-                                clientColor: _color,
+                                clientColor: _color.toARGB32().toInt(),
                               );
                               context.read<ClientBloc>().add(
                                     ClientAdd(client: client),

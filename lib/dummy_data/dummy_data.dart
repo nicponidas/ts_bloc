@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:time_sheet/models/client_model.dart';
 import 'package:time_sheet/models/job_model.dart';
 import 'package:time_sheet/models/task_model.dart';
@@ -6,8 +5,8 @@ import 'package:time_sheet/models/task_type_model.dart';
 import 'package:time_sheet/models/user_model.dart';
 
 var listOfClient = [
-  ClientModel(id: '1', name: 'HP.com', shortName: 'HP', clientColor: Colors.blue),
-  ClientModel(id: '2', name: 'RedHat', shortName: 'RH', clientColor: Colors.red),
+  ClientModel(id: '1', name: 'HP.com', shortName: 'HP', clientColor: 4283215696),
+  ClientModel(id: '2', name: 'RedHat', shortName: 'RH', clientColor: 4287643222),
 ];
 var listOfJobs = [
   JobModel(title: 'job1', id: '1', clientId: '1', jobNumber: 12341, jobUrl: '',),
