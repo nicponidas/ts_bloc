@@ -10,7 +10,7 @@ class ClientRepository {
 
   Future<void> addClient(ClientModel client) async => _clients.add(client);
 
-  void removeClient(String clientId) =>
+  void removeClient(int clientId) =>
       _clients.removeWhere((element) => element.id == clientId);
 
   void updateClient(ClientModel client) {

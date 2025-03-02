@@ -128,7 +128,7 @@ class _AddClientFormState extends State<AddClientForm> {
                               final client = ClientModel(
                                 id: DateTime.now()
                                     .millisecondsSinceEpoch
-                                    .toString(),
+                                    .toInt(),
                                 name: _clientNameController.text,
                                 shortName: _clientShortNameController.text.toUpperCase(),
                                 clientColor: _color.toARGB32().toInt(),

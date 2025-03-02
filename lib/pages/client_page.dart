@@ -8,7 +8,7 @@ import 'package:time_sheet/widgets/my_drawer.dart';
 class ClientPage extends StatelessWidget {
   const ClientPage({super.key, required this.client});
 
-  final String client;
+  final int client;
 
   @override
   Widget build(BuildContext context) {

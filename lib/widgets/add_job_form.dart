@@ -8,7 +8,7 @@ class AddJobForm extends StatefulWidget {
   const AddJobForm({super.key, this.job, this.client});
 
   final JobModel? job;
-  final String? client;
+  final int? client;
 
   @override
   State<AddJobForm> createState() => _AddJobFormState();
@@ -20,7 +20,7 @@ class _AddJobFormState extends State<AddJobForm> {
   final TextEditingController _jobNumberController = TextEditingController();
   final TextEditingController _jobNameController = TextEditingController();
   final TextEditingController _jobUrlController = TextEditingController();
-  late String selectedClient;
+  late int selectedClient;
 
   TextEditingController setJobNumber(JobModel? job) {
     if (job != null) {
@@ -57,7 +57,7 @@ class _AddJobFormState extends State<AddJobForm> {
       if (state is ClientLoaded && state.clients.isNotEmpty) {
         selectedClient = state.clients.first.id;
       } else {
-        selectedClient = "Select Client";
+        selectedClient = 1;
       }
     }
   }
@@ -118,12 +118,12 @@ class _AddJobFormState extends State<AddJobForm> {
                         enableFilter: true,
                         dropdownMenuEntries: state.clients
                             .map((e) => DropdownMenuEntry(
-                                label: e.name, value: e.id.toString()))
+                                label: e.name, value: e.id.toInt()))
                             .toList(),
                         initialSelection: selectedClient,
                         onSelected: (value) {
                           setState(() {
-                            selectedClient = value.toString();
+                            selectedClient = value as int;
                           });
                         });
                   } else if (state is ClientLoading) {
@@ -150,7 +150,7 @@ class _AddJobFormState extends State<AddJobForm> {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               final newJob = JobModel(
-                                id: DateTime.now().toString(),
+                                id: DateTime.now().millisecondsSinceEpoch.toInt(),
                                 clientId: selectedClient,
                                 jobNumber: int.parse(_jobNumberController.text),
                                 title: _jobNameController.text,

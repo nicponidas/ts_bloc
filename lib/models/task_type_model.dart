@@ -1,5 +1,5 @@
 class TaskTypeModel {
-  final String id;
+  final int id;
   final String name;
 
   TaskTypeModel({required this.id, required this.name});

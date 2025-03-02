@@ -17,8 +17,8 @@ class AddTaskForm extends StatefulWidget {
 
 class _AddTaskFormState extends State<AddTaskForm> {
   final _formKey = GlobalKey<FormState>();
-  String selectedJob = '0';
-  late String selectTaskType;
+  int selectedJob = 1;
+  late int selectTaskType;
   final TextEditingController _dateStartController = TextEditingController();
   final TextEditingController _timeStartController = TextEditingController();
   final TextEditingController _dateEndController = TextEditingController();
@@ -29,8 +29,8 @@ class _AddTaskFormState extends State<AddTaskForm> {
   void initState() {
     super.initState();
     if (widget.task != null) {
-      selectedJob = widget.task!.jobId.toString();
-      selectTaskType = widget.task!.taskTypeId.toString();
+      selectedJob = widget.task!.jobId;
+      selectTaskType = widget.task!.taskTypeId;
       _dateStartController.text =
           DateFormat('yyyy-MM-dd').format(widget.task!.timeStart).toString();
       _timeStartController.text =
@@ -110,7 +110,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
                       .toList(),
                   onSelected: (value) {
                     setState(() {
-                      selectedJob = value.toString();
+                      selectedJob = value as int;
                     });
                   },
                 );
@@ -178,13 +178,13 @@ class _AddTaskFormState extends State<AddTaskForm> {
                 return DropdownMenu(
                     width: double.maxFinite,
                     initialSelection: widget.task != null
-                        ? widget.task!.taskTypeId.toString()
+                        ? widget.task!.taskTypeId
                         : "Select Task Type",
                     hintText: "Type of Task",
                     enableFilter: true,
                     onSelected: (value) {
                       setState(() {
-                        selectTaskType = value.toString();
+                        selectTaskType = value as int;
                       });
                     },
                     dropdownMenuEntries: state.taskTypes
@@ -237,12 +237,12 @@ class _AddTaskFormState extends State<AddTaskForm> {
                           final String startDate =
                               "${_dateStartController.text} ${_timeStartController.text}";
                           final newTask = TaskModel(
-                              id: DateTime.now().toString(),
+                              id: DateTime.now().millisecondsSinceEpoch,
                               timeStart: DateTime.parse(startDate),
                               timeSummary: 0.0,
                               jobId: selectedJob,
                               taskTypeId: selectTaskType,
-                              userId: '1');
+                              userId: 1);
                           context.read<TaskBloc>().add(TaskAdd(task: newTask));
                           context.read<TaskBloc>().add(TaskLoad());
                           Navigator.pop(context);

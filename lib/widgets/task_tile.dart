@@ -18,11 +18,9 @@ class TaskTile extends StatelessWidget {
     final jobState = context.watch<JobBloc>().state;
     final clientState = context.watch<ClientBloc>().state;
 
-    // Sprawdzaj stany przed użyciem
     if (taskTypeState is! TaskTypeLoaded ||
         jobState is! JobLoaded ||
         clientState is! ClientLoaded) {
-      // Zwróć widok ładowania lub inny widok zastępczy
       return const ListTile(
         title: Text('Ładowanie danych...'),
         leading: CircleAvatar(child: CircularProgressIndicator()),
@@ -53,7 +51,7 @@ class TaskTile extends StatelessWidget {
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('${job.title}\n${taskType.name}'),
+          Text('${job.title}\n${task.timeStart}\n${taskType.name}'),
         ],
       ),
       trailing: Row(

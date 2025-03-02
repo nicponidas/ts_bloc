@@ -1,8 +1,8 @@
 class JobModel {
   final String title;
   final String? jobUrl;
-  final String id;
-  final String clientId;
+  final int id;
+  final int clientId;
   final int jobNumber;
 
   JobModel({

@@ -55,7 +55,7 @@ class _AddTaskTypeFormState extends State<AddTaskTypeForm> {
                   ? ElevatedButton.icon(
                       onPressed: () {
                         final taskType = TaskTypeModel(
-                            id: DateTime.now().toString(),
+                            id: DateTime.now().millisecondsSinceEpoch,
                             name: _typeOfTaskController.text);
                         context.read<TaskTypeBloc>().add(TaskTypeAdd(taskType));
                         context.read<TaskTypeBloc>().add(TaskTypeLoad());

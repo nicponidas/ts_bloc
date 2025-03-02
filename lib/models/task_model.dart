@@ -1,12 +1,12 @@
 class TaskModel {
-  final String id;
+  final int id;
   final String? description;
   final DateTime timeStart;
   final DateTime? timeEnd;
   late final double? timeSummary;
-  final String jobId;
-  final String taskTypeId;
-  final String userId;
+  final int jobId;
+  final int taskTypeId;
+  final int userId;
 
   TaskModel({
     required this.id,

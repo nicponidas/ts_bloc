@@ -28,7 +28,7 @@ class ClientUpdate extends ClientEvent {
 }
 
 class ClientDelete extends ClientEvent {
-  final String clientId;
+  final int clientId;
 
   const ClientDelete({required this.clientId});
 
