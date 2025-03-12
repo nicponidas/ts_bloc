@@ -4,13 +4,21 @@ import 'package:time_sheet/bloc/client_bloc.dart';
 import 'package:time_sheet/bloc/job_bloc.dart';
 import 'package:time_sheet/bloc/task_bloc.dart';
 import 'package:time_sheet/bloc/task_type_bloc.dart';
+import 'package:time_sheet/helpers/cont_supabase.dart';
 import 'package:time_sheet/pages/home_page.dart';
 import 'package:time_sheet/repositories/client_repository.dart';
 import 'package:time_sheet/repositories/job_repository.dart';
 import 'package:time_sheet/repositories/task_repository.dart';
 import 'package:time_sheet/repositories/task_type_repository.dart';
+import 'package:time_sheet/helpers/suapbase_service.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Inicjalizacja klienta Supabase
+  await SupabaseService.initialize(
+    supabaseUrl: appUrl, // Zamień na swój URL
+    supabaseAnonKey: anonKey, // Zamień na swój klucz
+  );
   runApp(const MyApp());
 }
 
